@@ -7,11 +7,7 @@ const path = require('path');
 const app = express();
 
 // Middleware
-const corsOptions = {
-  origin: ['https://your-frontend.vercel.app'], // replace with your actual frontend URL
-  credentials: true, // if you use cookies or authentication
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
