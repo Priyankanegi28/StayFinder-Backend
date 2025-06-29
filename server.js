@@ -84,13 +84,18 @@ if (process.env.NODE_ENV === 'production') {
     });
   } else {
     console.log('⚠️  Client build directory not found. API-only mode.');
+    
+    // 404 handler for API routes when no client build exists
+    app.all('/api/*', (req, res) => {
+      res.status(404).json({ msg: 'API endpoint not found' });
+    });
   }
+} else {
+  // 404 handler for API routes in development
+  app.all('/api/*', (req, res) => {
+    res.status(404).json({ msg: 'API endpoint not found' });
+  });
 }
-
-// 404 handler for API routes
-app.use('/api/*', (req, res) => {
-  res.status(404).json({ msg: 'API endpoint not found' });
-});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
